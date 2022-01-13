@@ -6,5 +6,3 @@ letters that has to be excluded (GREY COLOR) => PRNK<br>
 letters with correct positions in the format a*b** (GREEN COLOR) => -
 
 and it displays a list of possible words filtered out by the above conditions and the same can be repeated till the correct word is found !
-
-NOTE : All the input has to be in CAPITAL letters
