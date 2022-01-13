@@ -9,7 +9,7 @@ class WordleUtils {
     if (excludedWord.equalsIgnoreCase("-")) {
       return true;
     }
-    for (char c : excludedWord.toCharArray()) {
+    for (char c : excludedWord.toUpperCase().toCharArray()) {
       if (word.indexOf(c) != -1) {
         return false;
       }
@@ -21,7 +21,7 @@ class WordleUtils {
     if (incorrectPositions.equalsIgnoreCase("-")) {
       return true;
     }
-    for (char c : incorrectPositions.toCharArray()) {
+    for (char c : incorrectPositions.toUpperCase().toCharArray()) {
       if (word.indexOf(c) == -1) {
         return false;
       }
@@ -33,6 +33,7 @@ class WordleUtils {
     if (correctPositions.equalsIgnoreCase("-")) {
       return true;
     }
+    correctPositions = correctPositions.toUpperCase();
     for (int i = 0; i < word.length(); ++i) {
       if (correctPositions.charAt(i) != '*' && correctPositions.charAt(i) != word.charAt(i)) {
         return false;
