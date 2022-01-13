@@ -4,15 +4,24 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Wordle {
 
+  private final Map<Character, List<Integer>> visitedPositions = new HashMap<>();
+
+  public Map<Character, List<Integer>> getVisitedPositions() {
+    return visitedPositions;
+  }
+
   public static void main(String[] args) throws FileNotFoundException {
     List<String> availableWords = new ArrayList<>();
-    File myFile = new File("/Users/fakrudeenail/Documents/IntelliJ/src/fakru/wordle/five-letter-words.txt");
+    File myFile = new File(
+        "/Users/fakrudeenail/Documents/IntelliJ/src/fakru/wordle/five-letter-words.txt");
     Scanner fileScanner = new Scanner(myFile);
     Scanner input = new Scanner(System.in);
     while (fileScanner.hasNextLine()) {
@@ -31,7 +40,7 @@ public class Wordle {
       String correctPosition = input.next();
       availableWords = availableWords.stream()
           .filter(word -> WordleUtils.filterExcludedLetters(word, excludedLetters))
-          .filter(word -> WordleUtils.filterIncorrectPositions(word, incorrectPositions))
+          .filter(word -> WordleUtils.filterIncorrectPositionsV2(word, incorrectPositions))
           .filter(word -> WordleUtils.filterCorrectPositions(word, correctPosition))
           .collect(Collectors.toList());
       System.out.println(availableWords);
