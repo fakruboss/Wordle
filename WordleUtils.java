@@ -9,11 +9,11 @@ class WordleUtils {
   private WordleUtils() {
   }
 
-  public static boolean filterExcludedLetters(String word, String excludedWord) {
-    if (excludedWord.equalsIgnoreCase("-")) {
+  public static boolean filterExcludedLetters(String word) {
+    if (Wordle.getInstance().getExcludedLetters().equalsIgnoreCase("-")) {
       return true;
     }
-    for (char c : excludedWord.toUpperCase().toCharArray()) {
+    for (char c : Wordle.getInstance().getExcludedLetters().toUpperCase().toCharArray()) {
       if (word.indexOf(c) != -1) {
         return false;
       }
@@ -21,24 +21,13 @@ class WordleUtils {
     return true;
   }
 
-  public static boolean filterIncorrectPositions(String word, String incorrectPositions) {
-    if (incorrectPositions.equalsIgnoreCase("-")) {
-      return true;
-    }
-    for (char c : incorrectPositions.toUpperCase().toCharArray()) {
-      if (word.indexOf(c) == -1) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  public static boolean filterIncorrectPositionsV2(String word, String incorrectPositions) {
+  public static boolean filterIncorrectPositions(String word) {
+    String incorrectPositions = Wordle.getInstance().getIncorrectPositions();
     if (incorrectPositions.equalsIgnoreCase("-")) {
       return true;
     }
     incorrectPositions = incorrectPositions.toUpperCase();
-    Map<Character, List<Integer>> positions = new Wordle().getVisitedPositions();
+    Map<Character, List<Integer>> positions = Wordle.getInstance().getVisitedPositions();
     for (int i = 0; i < incorrectPositions.length(); ++i) {
       char c = incorrectPositions.charAt(i);
       if (c == '*') {
@@ -64,7 +53,8 @@ class WordleUtils {
     return true;
   }
 
-  public static boolean filterCorrectPositions(String word, String correctPositions) {
+  public static boolean filterCorrectPositions(String word) {
+    String correctPositions = Wordle.getInstance().getCorrectPositions();
     if (correctPositions.equalsIgnoreCase("-")) {
       return true;
     }
