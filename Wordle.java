@@ -70,22 +70,34 @@ public class Wordle {
     fileScanner.close();
     int tries = 0;
     do {
-      System.out.println("Available words in list : " + availableWords.size());
-      System.out.println("ENTER - to ignore that filter");
-      System.out.println("letters with incorrect positions (YELLOW COLOR)");
+      print("ENTER - to ignore that filter");
+      print("letters with incorrect positions (YELLOW COLOR)");
       setIncorrectPositions(input.next());
-      System.out.println("letters that has to be excluded (GREY COLOR)");
+      print("letters that has to be excluded (GREY COLOR)");
       setExcludedLetters(input.next());
-      System.out.println("letters with correct positions in the format a*b** (GREEN COLOR)");
+      print("letters with correct positions in the format a*b** (GREEN COLOR)");
       setCorrectPositions(input.next());
       availableWords = availableWords.stream()
           .filter(WordleUtils::filterExcludedLetters)
           .filter(WordleUtils::filterIncorrectPositions)
           .filter(WordleUtils::filterCorrectPositions)
           .collect(Collectors.toList());
-      System.out.println(availableWords);
+      print("Available words in list : " + availableWords.size());
+      print(availableWords);
+      List<String> uniqueWords = WordleUtils.uniqueWordsList(availableWords);
+      print("Words with max unique letters & max vowels from available words : "
+          + uniqueWords.size());
+      print(uniqueWords);
       ++tries;
     } while (tries <= 5);
     input.close();
+  }
+
+  private void print(String s) {
+    System.out.println(s);
+  }
+
+  private void print(List<String> list) {
+    System.out.println(list);
   }
 }

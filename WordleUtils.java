@@ -67,13 +67,21 @@ class WordleUtils {
     return true;
   }
 
-  public static List<String> betterGuess(List<String> availableWords) {
+  public static List<String> uniqueWordsList(List<String> availableWords) {
     List<String> result = new ArrayList<>();
     long maxLength = getDistinctCount(availableWords.get(0));
+    short vowelsCount = getVowelsCount(availableWords.get(0));
     for (String word : availableWords) {
       if (getDistinctCount(word) == maxLength) {
-        result.add(word);
+        if (getVowelsCount(word) > vowelsCount) {
+          vowelsCount = getVowelsCount(word);
+          result = new ArrayList<>();
+          result.add(word);
+        } else if (getVowelsCount(word) == vowelsCount) {
+          result.add(word);
+        }
       } else if (getDistinctCount(word) > maxLength) {
+        maxLength = getDistinctCount(word);
         result = new ArrayList<>();
         result.add(word);
       }
@@ -83,5 +91,25 @@ class WordleUtils {
 
   private static long getDistinctCount(String word) {
     return word.chars().distinct().count();
+  }
+
+  private static short getVowelsCount(String word) {
+    short result = 0;
+    if (word.contains("A")) {
+      ++result;
+    }
+    if (word.contains("E")) {
+      ++result;
+    }
+    if (word.contains("I")) {
+      ++result;
+    }
+    if (word.contains("O")) {
+      ++result;
+    }
+    if (word.contains("U")) {
+      ++result;
+    }
+    return result;
   }
 }
