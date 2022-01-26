@@ -68,6 +68,10 @@ public class Wordle {
       Collections.addAll(availableWords, line.split(" "));
     }
     fileScanner.close();
+    List<String> uniqueWords = WordleUtils.uniqueWordsList(availableWords);
+    print("Words with max unique letters & max vowels from available words : "
+        + uniqueWords.size());
+    print(uniqueWords);
     int tries = 0;
     do {
       print("ENTER - to ignore that filter");
@@ -84,7 +88,7 @@ public class Wordle {
           .collect(Collectors.toList());
       print("Available words in list : " + availableWords.size());
       print(availableWords);
-      List<String> uniqueWords = WordleUtils.uniqueWordsList(availableWords);
+      uniqueWords = WordleUtils.uniqueWordsList(availableWords);
       print("Words with max unique letters & max vowels from available words : "
           + uniqueWords.size());
       print(uniqueWords);
